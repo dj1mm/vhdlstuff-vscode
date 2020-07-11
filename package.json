@@ -1,0 +1,63 @@
+{
+    "name": "monika-vscode",
+    "displayName": "Monika vscode",
+    "description": "Monika vscode client",
+    "categories": [],
+    "engines": {
+        "vscode": "^1.43.0"
+    },
+    "activationEvents": [
+        "onLanguage:vhdl"
+    ],
+    "main": "./client/out/extension",
+    "contributes": {
+        "configuration": {
+            "type": "object",
+            "title": "Example configuration",
+            "properties": {
+                "monika.server": {
+                    "scope": "window",
+                    "type": "string",
+                    "default": "",
+                    "description": "Path to monika executable"
+                },
+                "monika.scratchpad": {
+                    "scope": "window",
+                    "type": "string",
+                    "default": "",
+                    "description": "Monika can read and write its things there"
+                },
+                "monika.libraries": {
+                    "type": "array",
+                    "default": [],
+                    "description": "Monika must be aware of these libraries",
+                    "items": {
+                        "type": "string",
+                        "description": "Vhdl library"
+                    }
+                },
+                "monika.indexDirectories": {
+                    "type": "array",
+                    "default": [],
+                    "description": "Monika must index these directories",
+                    "items": {
+                        "type": "string",
+                        "description": "Directory to index"
+                    }
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "yarn compile",
+        "compile": "tsc -b",
+        "watch": "tsc -b -w",
+        "postinstall": "cd client && yarn && cd .."
+    },
+    "devDependencies": {
+        "@types/node": "^12.12.0",
+        "typescript": "^3.9.4"
+    },
+    "version": "1.0.0",
+    "license": "MIT"
+}
