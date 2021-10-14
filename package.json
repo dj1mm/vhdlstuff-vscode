@@ -16,35 +16,28 @@
             "title": "Example configuration",
             "properties": {
                 "monika.server": {
-                    "scope": "window",
+                    "scope": "machine",
                     "type": "string",
                     "default": "",
                     "description": "Path to monika executable"
                 },
                 "monika.scratchpad": {
-                    "scope": "window",
+                    "scope": "machine-overridable",
                     "type": "string",
                     "default": "",
-                    "description": "Monika can read and write its things there"
+                    "description": "Monika will use this to dump temporary things."
                 },
-                "monika.libraries": {
-                    "type": "array",
-                    "default": [],
-                    "description": "Monika must be aware of these libraries",
-                    "items": {
-                        "type": "string",
-                        "description": "Vhdl library"
-                    }
-                },
-                "monika.indexDirectories": {
-                    "type": "array",
-                    "default": [],
-                    "description": "Monika must index these directories",
-                    "items": {
-                        "type": "string",
-                        "description": "Directory to index"
-                    }
-                }
+				"monika.trace.server": {
+					"scope": "window",
+					"type": "string",
+					"enum": [
+						"off",
+						"messages",
+						"verbose"
+					],
+					"default": "off",
+					"description": "Trace the communication between VS Code and monika."
+				}
             }
         }
     },

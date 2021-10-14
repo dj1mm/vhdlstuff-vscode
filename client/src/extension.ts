@@ -10,17 +10,18 @@ let client: language.LanguageClient;
 export function activate(context: vscode.ExtensionContext): void
 {
     let monika = vscode.workspace.getConfiguration('monika');
+    let scratchpad: string | undefined = `${monika.scratchpad}`;
 
     try
     {
         fs.accessSync(monika.scratchpad, fs.constants.R_OK | fs.constants.W_OK);
+        console.log(`Scratchpad area found:   '${monika.scratchpad}'`);
     }
     catch (err)
     {
         console.log(`Scratchpad is not accessible: '${monika.scratchpad}'`);
-        return;
+        scratchpad = undefined;
     }
-    console.log(`Scratchpad area found:   '${monika.scratchpad}'`)
 
     try
     {
@@ -35,10 +36,17 @@ export function activate(context: vscode.ExtensionContext): void
 
     let serverOptions: language.ServerOptions = {
         command: monika.server,
-        args: [`--logfile=${path.join(monika.scratchpad, "output.log")}`, "--stderr", "server"]
+        args: ["server"]
     };
+    if (scratchpad != undefined)
+        serverOptions.args.unshift(`--logfile=${path.join(scratchpad, "output.log")}`)
+
+    // If for some reason it is needed to force monika to write a logfile,
+    // uncomment the following line will do just that:
+    // serverOptions.args.unshift(`--logfile=<path where to write a logfile>`)
 
     let clientOptions: language.LanguageClientOptions = {
+        outputChannelName: 'Monika',
         documentSelector: [{ scheme: 'file', language: 'vhdl' }],
         synchronize: {
             fileEvents: vscode.workspace.createFileSystemWatcher('**/.clientrc')
@@ -56,5 +64,5 @@ export function deactivate(): Thenable<void> | undefined
     if (!client)
         return undefined;
 
-        return client.stop();
+    return client.stop();
 }
