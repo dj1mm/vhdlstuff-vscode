@@ -44,7 +44,8 @@ export function activate(context: vscode.ExtensionContext): void
 
     // If for some debugging reason vhdlstuff needs to dump its standard input
     // and output, uncomment the following line will do just that:
-    // serverOptions.args.push(`--journal=<path where to write the journal>`)
+    // if (scratchpad != undefined)
+    //     serverOptions.args.push(`--journal=${path.join(scratchpad, "output.jou")}`)
 
     let clientOptions: language.LanguageClientOptions = {
         outputChannelName: 'Vhdlstuff',
