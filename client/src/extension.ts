@@ -9,54 +9,55 @@ let client: language.LanguageClient;
 
 export function activate(context: vscode.ExtensionContext): void
 {
-    let monika = vscode.workspace.getConfiguration('monika');
-    let scratchpad: string | undefined = `${monika.scratchpad}`;
+    let vhdlstuff = vscode.workspace.getConfiguration('vhdlstuff');
+    let scratchpad: string | undefined = `${vhdlstuff.scratchpad}`;
 
     try
     {
-        fs.accessSync(monika.scratchpad, fs.constants.R_OK | fs.constants.W_OK);
-        console.log(`Scratchpad area found:   '${monika.scratchpad}'`);
+        fs.accessSync(vhdlstuff.scratchpad, fs.constants.R_OK | fs.constants.W_OK);
+        console.log(`Scratchpad area found:   '${vhdlstuff.scratchpad}'`);
     }
     catch (err)
     {
-        console.log(`Scratchpad is not accessible: '${monika.scratchpad}'`);
+        console.log(`Scratchpad is not accessible: '${vhdlstuff.scratchpad}'`);
         scratchpad = undefined;
     }
 
     try
     {
-        fs.accessSync(monika.server, fs.constants.X_OK);
+        fs.accessSync(vhdlstuff.server, fs.constants.X_OK);
     }
     catch (err)
     {
-        console.log(`Server executable is not accessible: '${monika.server}'`);
+        console.log(`Server executable is not accessible: '${vhdlstuff.server}'`);
+        vscode.window.showErrorMessage(`Server executable not accessible. Please update vhdlstuff settings to enjoy VHDL language services.`);
         return;
     }
-    console.log(`Server executable found: '${monika.server}'`)
+    console.log(`Server executable found: '${vhdlstuff.server}'`);
 
     let serverOptions: language.ServerOptions = {
-        command: monika.server,
+        command: vhdlstuff.server,
         args: ["server"]
     };
     if (scratchpad != undefined)
         serverOptions.args.unshift(`--logfile=${path.join(scratchpad, "output.log")}`)
 
-    // If for some debugging reason monika needs to dump its standard input
+    // If for some debugging reason vhdlstuff needs to dump its standard input
     // and output, uncomment the following line will do just that:
     // serverOptions.args.push(`--journal=<path where to write the journal>`)
 
     let clientOptions: language.LanguageClientOptions = {
-        outputChannelName: 'Monika',
+        outputChannelName: 'Vhdlstuff',
         documentSelector: [{ scheme: 'file', language: 'vhdl' }],
         synchronize: {
-            fileEvents: vscode.workspace.createFileSystemWatcher('**/.clientrc')
+            fileEvents: vscode.workspace.createFileSystemWatcher('**/vhdl_properties.yaml')
         }
     };
 
-    client = new language.LanguageClient('monika', 'Monika', serverOptions, clientOptions);
+    client = new language.LanguageClient('vhdlstuff', 'Vhdlstuff', serverOptions, clientOptions);
     client.start();
 
-    console.log("Monika initialised");
+    console.log("Vhdlstuff initialised");
 }
 
 export function deactivate(): Thenable<void> | undefined

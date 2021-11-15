@@ -1,6 +1,6 @@
 {
-    "name": "monika-vscode-client",
-    "description": "Monika vscode client",
+    "name": "vhdlstuff-vscode-client",
+    "description": "Vhdlstuff vscode client",
     "engines": {
         "vscode": "^1.43.0"
     },

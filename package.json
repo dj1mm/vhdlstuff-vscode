@@ -1,7 +1,7 @@
 {
-    "name": "monika-vscode",
-    "displayName": "Monika vscode",
-    "description": "Monika vscode client",
+    "name": "vhdlstuff-vscode",
+    "displayName": "Vhdlstuff vscode",
+    "description": "Vhdlstuff vscode client",
     "categories": [],
     "engines": {
         "vscode": "^1.43.0"
@@ -13,21 +13,21 @@
     "contributes": {
         "configuration": {
             "type": "object",
-            "title": "Example configuration",
+            "title": "Vhdlstuff",
             "properties": {
-                "monika.server": {
+                "vhdlstuff.server": {
                     "scope": "machine",
                     "type": "string",
                     "default": "",
-                    "description": "Path to monika executable"
+                    "description": "Path to vhdlstuff executable"
                 },
-                "monika.scratchpad": {
+                "vhdlstuff.scratchpad": {
                     "scope": "machine-overridable",
                     "type": "string",
                     "default": "",
-                    "description": "Monika will use this to dump temporary things."
+                    "description": "Vhdlstuff will use this to dump temporary things."
                 },
-				"monika.trace.server": {
+				"vhdlstuff.trace.server": {
 					"scope": "window",
 					"type": "string",
 					"enum": [
@@ -36,7 +36,7 @@
 						"verbose"
 					],
 					"default": "off",
-					"description": "Trace the communication between VS Code and monika."
+					"description": "Trace the communication between Vhdlstuff and VS Code."
 				}
             }
         }
