@@ -41,9 +41,9 @@ export function activate(context: vscode.ExtensionContext): void
     if (scratchpad != undefined)
         serverOptions.args.unshift(`--logfile=${path.join(scratchpad, "output.log")}`)
 
-    // If for some reason it is needed to force monika to write a logfile,
-    // uncomment the following line will do just that:
-    // serverOptions.args.unshift(`--logfile=<path where to write a logfile>`)
+    // If for some debugging reason monika needs to dump its standard input
+    // and output, uncomment the following line will do just that:
+    // serverOptions.args.push(`--journal=<path where to write the journal>`)
 
     let clientOptions: language.LanguageClientOptions = {
         outputChannelName: 'Monika',
