@@ -10,18 +10,6 @@ let client: language.LanguageClient;
 export function activate(context: vscode.ExtensionContext): void
 {
     let vhdlstuff = vscode.workspace.getConfiguration('vhdlstuff');
-    let scratchpad: string | undefined = `${vhdlstuff.scratchpad}`;
-
-    try
-    {
-        fs.accessSync(vhdlstuff.scratchpad, fs.constants.R_OK | fs.constants.W_OK);
-        console.log(`Scratchpad area found:   '${vhdlstuff.scratchpad}'`);
-    }
-    catch (err)
-    {
-        console.log(`Scratchpad is not accessible: '${vhdlstuff.scratchpad}'`);
-        scratchpad = undefined;
-    }
 
     try
     {
@@ -39,13 +27,24 @@ export function activate(context: vscode.ExtensionContext): void
         command: vhdlstuff.server,
         args: ["server"]
     };
-    if (scratchpad != undefined)
-        serverOptions.args.unshift(`--logfile=${path.join(scratchpad, "output.log")}`)
 
-    // If for some debugging reason vhdlstuff needs to dump its standard input
-    // and output, uncomment the following line will do just that:
-    // if (scratchpad != undefined)
-    //     serverOptions.args.push(`--journal=${path.join(scratchpad, "output.jou")}`)
+    switch (vhdlstuff.verbosity) {
+    case 'Logfile':
+    case 'Journal and Logfile':
+        serverOptions.args.unshift(`--logfile=${path.join("output.log")}`);
+        break;
+    default:
+        break;
+    }
+
+    switch (vhdlstuff.verbosity) {
+    case 'Journal':
+    case 'Journal and Logfile':
+        serverOptions.args.push(`--journal=${path.join("output.jou")}`);
+        break;
+    default:
+        break;
+    }
 
     let clientOptions: language.LanguageClientOptions = {
         outputChannelName: 'Vhdlstuff',

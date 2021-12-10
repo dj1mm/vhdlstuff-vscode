@@ -21,23 +21,29 @@
                     "default": "",
                     "description": "Path to vhdlstuff executable"
                 },
-                "vhdlstuff.scratchpad": {
-                    "scope": "machine-overridable",
+                "vhdlstuff.verbosity": {
+                    "scope": "window",
                     "type": "string",
-                    "default": "",
-                    "description": "Vhdlstuff will use this to dump temporary things."
+                    "enum": [
+                        "Be discreet",
+                        "Logfile",
+                        "Journal",
+                        "Journal and Logfile"
+                    ],
+                    "default": "Be discreet",
+                    "description": "Determine the level of verbosity for vhdlstuff."
                 },
-				"vhdlstuff.trace.server": {
-					"scope": "window",
-					"type": "string",
-					"enum": [
-						"off",
-						"messages",
-						"verbose"
-					],
-					"default": "off",
-					"description": "Trace the communication between Vhdlstuff and VS Code."
-				}
+                "vhdlstuff.trace.server": {
+                    "scope": "window",
+                    "type": "string",
+                    "enum": [
+                        "off",
+                        "messages",
+                        "verbose"
+                    ],
+                    "default": "off",
+                    "description": "Trace the communication between Vhdlstuff and VS Code."
+                }
             }
         }
     },
