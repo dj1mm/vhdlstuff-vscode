@@ -29,8 +29,17 @@ export function activate(context: vscode.ExtensionContext): void
     };
 
     switch (vhdlstuff.verbosity) {
+    case 'Trace':
+    case 'Journal, Logfile and Trace':
+        serverOptions.args.unshift(`--trace=${path.join("output.tra")}`);
+        break;
+    default:
+        break;
+    }
+
+    switch (vhdlstuff.verbosity) {
     case 'Logfile':
-    case 'Journal and Logfile':
+        case 'Journal, Logfile and Trace':
         serverOptions.args.unshift(`--logfile=${path.join("output.log")}`);
         break;
     default:
@@ -39,7 +48,7 @@ export function activate(context: vscode.ExtensionContext): void
 
     switch (vhdlstuff.verbosity) {
     case 'Journal':
-    case 'Journal and Logfile':
+        case 'Journal, Logfile and Trace':
         serverOptions.args.push(`--journal=${path.join("output.jou")}`);
         break;
     default:

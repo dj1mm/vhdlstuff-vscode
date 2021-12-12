@@ -28,7 +28,8 @@
                         "Be discreet",
                         "Logfile",
                         "Journal",
-                        "Journal and Logfile"
+                        "Trace",
+                        "Journal, Logfile and Trace"
                     ],
                     "default": "Be discreet",
                     "description": "Determine the level of verbosity for vhdlstuff."
