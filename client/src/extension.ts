@@ -25,7 +25,7 @@ export function activate(context: vscode.ExtensionContext): void
 
     let serverOptions: language.ServerOptions = {
         command: vhdlstuff.server,
-        args: ["server"]
+        args: []
     };
 
     switch (vhdlstuff.verbosity) {
@@ -59,7 +59,7 @@ export function activate(context: vscode.ExtensionContext): void
         outputChannelName: 'Vhdlstuff',
         documentSelector: [{ scheme: 'file', language: 'vhdl' }],
         synchronize: {
-            fileEvents: vscode.workspace.createFileSystemWatcher('**/vhdl_properties.yaml')
+            fileEvents: vscode.workspace.createFileSystemWatcher('**/vhdl_config.yaml')
         }
     };
 
