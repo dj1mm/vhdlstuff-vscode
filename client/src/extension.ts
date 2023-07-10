@@ -57,7 +57,8 @@ export function activate(context: vscode.ExtensionContext): void
 
     let clientOptions: language.LanguageClientOptions = {
         outputChannelName: 'Vhdlstuff',
-        documentSelector: [{ scheme: 'file', language: 'vhdl' }],
+        documentSelector: [{ scheme: 'file', language: 'vhdl' },
+                           { scheme: 'file', language: 'systemverilog' }],
         synchronize: {
             fileEvents: vscode.workspace.createFileSystemWatcher('**/vhdl_config.yaml')
         }

@@ -7,7 +7,7 @@
         "vscode": "^1.43.0"
     },
     "activationEvents": [
-        "onLanguage:vhdl"
+        "onLanguage:vhdl", "onLanguage:systemverilog"
     ],
     "main": "./client/out/extension",
     "contributes": {
